@@ -1,5 +1,6 @@
 package org.lipski.users.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class User {
     private String password;
     private boolean enabled;
     private String email;
+    private Date lastLoginDate;
     private Set<UserRole> userRole = new HashSet<>();
 
     public User() {
@@ -81,5 +83,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Column(name = "last_login_date", nullable = false, columnDefinition = "DATETIME")
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 }

@@ -5,7 +5,10 @@
 <body>
 	<h1>Title : ${title}</h1>
 	<h1>Message : ${message}</h1>
-
+    <sec:authorize access="isAnonymous()">
+        <a href="<c:url value="/login"/>">Login</a><br/>
+        Don't have account yet? <a href="<c:url value="/register"/>">Register</a>
+    </sec:authorize>
 	<sec:authorize access="hasRole('ROLE_USER')">
 		<!-- For login user -->
 		<c:url value="/logout" var="logoutUrl" />

@@ -2,6 +2,7 @@ package org.lipski.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.lipski.users.model.User;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -56,6 +57,15 @@ public class MainController {
 
         return model;
 
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public ModelAndView register(@RequestParam(value = "user", required = false) User user,
+                                 @RequestParam(value = "error", required = false) String error) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("msg", "Register form test");
+
+        return model;
     }
 
     private String getErrorMessage(HttpServletRequest request, String key) {
