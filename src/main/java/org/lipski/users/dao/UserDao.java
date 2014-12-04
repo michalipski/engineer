@@ -5,5 +5,5 @@ import org.lipski.users.model.User;
 public interface UserDao {
 
     User findByUserName(String username);
-
+    void saveUser(User user);
 }

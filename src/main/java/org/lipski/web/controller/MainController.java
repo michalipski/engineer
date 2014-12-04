@@ -59,15 +59,6 @@ public class MainController {
 
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView register(@RequestParam(value = "user", required = false) User user,
-                                 @RequestParam(value = "error", required = false) String error) {
-        ModelAndView model = new ModelAndView();
-        model.addObject("msg", "Register form test");
-
-        return model;
-    }
-
     private String getErrorMessage(HttpServletRequest request, String key) {
 
         Exception exception = (Exception) request.getSession().getAttribute(key);
