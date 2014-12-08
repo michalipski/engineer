@@ -3,7 +3,7 @@ package org.lipski.web.controller;
 import org.lipski.users.dao.UserDao;
 import org.lipski.users.dao.UserRoleDao;
 import org.lipski.users.model.User;
-import org.lipski.users.model.UserRole;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
