@@ -1,0 +1,12 @@
+<project>
+    <parent>
+        <groupId>org.lipski</groupId>
+        <artifactId>tourist-app</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.lipski.users.model</groupId>
+    <artifactId>TouristUser</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+</project>

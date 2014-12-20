@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -33,5 +34,21 @@ public class UserDaoImpl implements UserDao{
     @Transactional
     public void saveUser(User user) {
            sessionFactory.getCurrentSession().save(user);
+    }
+
+    @Override
+    @Transactional
+    public Boolean checkUserAndPassword(String username, String password) {
+        User user = findByUserName(username);
+        if(user==null){
+            return false;
+        } else {
+            if(password.equals(user.getPassword())) {
+                user.setLastLoginDate(new Date());
+                sessionFactory.getCurrentSession().update(user);
+                return true;
+            }
+        }
+        return false;
     }
 }

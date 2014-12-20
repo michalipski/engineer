@@ -1,8 +1,11 @@
 package org.lipski.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.lipski.users.dao.UserDao;
 import org.lipski.users.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -17,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    UserDao userDao;
 
     @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
     public ModelAndView defaultPage() {
@@ -57,6 +63,18 @@ public class MainController {
 
         return model;
 
+    }
+
+    @RequestMapping(value = "/remotelogin", method = RequestMethod.POST, produces = "text/plain")
+    public ModelAndView remoteLogin(@RequestParam(value = "login", required = true) String username,
+                                    @RequestParam(value = "pass", required = true) String password) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Boolean login = userDao.checkUserAndPassword(username, password);
+        modelAndView.addObject("login",login.toString());
+        modelAndView.setViewName("remoteLogin");
+
+        return modelAndView;
     }
 
     private String getErrorMessage(HttpServletRequest request, String key) {
