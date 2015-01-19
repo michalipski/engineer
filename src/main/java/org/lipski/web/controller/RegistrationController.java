@@ -22,8 +22,7 @@ public class RegistrationController {
     UserRoleDao userRoleDao;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegistration(@ModelAttribute("userForm") User user,
-                                      Map<String, Object> model) {
+    public String processRegistration(@ModelAttribute("userForm") User user) {
         user.setLastLoginDate(new Date());
         user.setEnabled(false);
         userDao.saveUser(user);
@@ -35,7 +34,6 @@ public class RegistrationController {
     public String viewRegistration(Map<String, Object> model) {
         User userForm = new User();
         model.put("userForm", userForm);
-
         return "register";
     }
 

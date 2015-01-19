@@ -11,10 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_roles", catalog = "engineerdb", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "username" }))
-public class UserRole{
+public class UserRole implements Serializable{
 
     private Integer userRoleId;
     private User user;

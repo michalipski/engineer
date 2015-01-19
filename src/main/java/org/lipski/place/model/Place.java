@@ -1,24 +1,45 @@
 package org.lipski.place.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "places", catalog = "engineerdb")
-public class Place {
+public class Place implements Serializable{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "place_id", nullable = false)
     Integer id;
+
+    @Column(name = "name", nullable = false, length = 45)
     String name;
+
+    @Column(name = "address", nullable = false, length = 60)
     String address;
+
+    @Column(name = "city", nullable = false, length = 45)
     String city;
+
+    @Column(name = "description")
     String description;
+
+    @Column(name = "phone", length = 9)
     Integer phone;
+
+    @Column(name = "open_hour")
     Time openHour;
+
+    @Column(name = "close_hour")
     Time closeHour;
+
+    @OneToMany(mappedBy = "place")
     List<Comment> comments;
+
+    @OneToMany(mappedBy = "place")
     List<Grade> grades;
 
     public Place() {

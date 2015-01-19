@@ -27,6 +27,7 @@ public class AppConfig {
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
         builder
                 .scanPackages("org.lipski.users.model")
+                .scanPackages("org.lipski.place.model")
                 .addProperties(getHibernateProperties());
 
         return builder.buildSessionFactory();

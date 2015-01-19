@@ -1,5 +1,9 @@
 package org.lipski.users.model;
 
+import org.lipski.place.model.Comment;
+import org.lipski.place.model.Grade;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users", catalog = "engineerdb")
-public class User {
+public class User implements Serializable{
 
     private String username;
     private String password;
@@ -21,6 +25,8 @@ public class User {
     private String email;
     private Date lastLoginDate;
     private Set<UserRole> userRole = new HashSet<>();
+    private Set<Comment> comments = new HashSet<>();
+    private Set<Grade> grades = new HashSet<>();
 
     public User() {
     }
@@ -85,12 +91,30 @@ public class User {
         this.email = email;
     }
 
-    @Column(name = "last_login_date", nullable = false, columnDefinition = "DATETIME")
+    @Column(name = "last_login_date", nullable = false)
     public Date getLastLoginDate() {
         return lastLoginDate;
     }
 
     public void setLastLoginDate(Date lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
+    }
+
+    @OneToMany(mappedBy = "author")
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @OneToMany(mappedBy = "author")
+    public Set<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Set<Grade> grades) {
+        this.grades = grades;
     }
 }

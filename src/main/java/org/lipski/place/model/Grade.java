@@ -2,17 +2,31 @@ package org.lipski.place.model;
 
 import org.lipski.users.model.User;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "grades", catalog = "engineerdb")
-public class Grade {
+public class Grade implements Serializable{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "grade_id")
     Integer id;
+
+    @Column(name = "grade")
     Integer grade;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     User author;
+
+    @ManyToOne
+    @JoinColumn(name = "place_id")
+    Place place;
+
+    @Column(name = "date")
     Date date;
 
     public Grade() {
@@ -54,5 +68,13 @@ public class Grade {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
     }
 }

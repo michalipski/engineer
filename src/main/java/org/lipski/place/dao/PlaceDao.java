@@ -9,4 +9,5 @@ public interface PlaceDao {
 
     public Place getPlaceById(Integer id);
     public List<Place> getPlacesWithRestrictions(Restrictions restrictions);
+    public void savePlace(Place place);
 }
