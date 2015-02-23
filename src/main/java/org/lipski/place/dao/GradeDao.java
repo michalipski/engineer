@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface GradeDao {
 
+    public void saveGradeForPlace(Integer placeId, String username, Integer grade);
+    public Integer getUserGradeForPlace(Integer placeId, String username);
+    public boolean isGradedByUser(Integer placeId, String username);
     public List<Grade> findUserGrades(User u);
     public List<Grade> findPlaceGrades(Place p);
     public Double getAverageGradeForPlace(Place p);

@@ -5,6 +5,7 @@
 <body>
 	<h1>Title : ${title}</h1>
 	<h1>Message : ${message}</h1>
+	<a href="<c:url value="/list"/>">Lista obiektow</a><br/>
     <sec:authorize access="isAnonymous()">
         <a href="<c:url value="/login"/>">Login</a><br/>
         Don't have account yet? <a href="<c:url value="/register"/>">Register</a>

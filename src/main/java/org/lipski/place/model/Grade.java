@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "grades", catalog = "engineerdb")
+@Table(name = "grades")
 public class Grade implements Serializable{
 
     @Id
@@ -32,10 +32,11 @@ public class Grade implements Serializable{
     public Grade() {
     }
 
-    public Grade(Integer grade, User author, Date date) {
+    public Grade(Integer grade, User author, Date date, Place place) {
         this.grade = grade;
         this.author = author;
         this.date = date;
+        this.place = place;
     }
 
     public Integer getId() {

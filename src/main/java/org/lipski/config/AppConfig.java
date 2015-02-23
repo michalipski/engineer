@@ -28,6 +28,7 @@ public class AppConfig {
         builder
                 .scanPackages("org.lipski.users.model")
                 .scanPackages("org.lipski.place.model")
+                .scanPackages("org.lipski.event.model")
                 .addProperties(getHibernateProperties());
 
         return builder.buildSessionFactory();

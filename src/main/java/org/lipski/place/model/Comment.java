@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "comments", catalog = "engineerdb")
+@Table(name = "comments")
 public class Comment implements Serializable{
 
     @Id

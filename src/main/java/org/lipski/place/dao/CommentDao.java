@@ -10,4 +10,5 @@ public interface CommentDao {
 
     public List<Comment> findUserComments(User u);
     public List<Comment> findPlaceComments(Place p);
+    public void saveCommentForPlace(Integer placeId, String username, String content);
 }

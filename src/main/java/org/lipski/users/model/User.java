@@ -19,6 +19,7 @@ import javax.persistence.Table;
 @Table(name = "users", catalog = "engineerdb")
 public class User implements Serializable{
 
+    private Integer id;
     private String username;
     private String password;
     private boolean enabled;
@@ -46,6 +47,15 @@ public class User implements Serializable{
     }
 
     @Id
+    @Column(name = "user_id", unique = true)
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Column(name = "username", unique = true, nullable = false, length = 45)
     public String getUsername() {
         return this.username;

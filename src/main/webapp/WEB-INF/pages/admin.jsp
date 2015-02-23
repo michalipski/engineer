@@ -24,6 +24,8 @@
 			Welcome : ${pageContext.request.userPrincipal.name} | <a
 				href="javascript:formSubmit()"> Logout</a>
 		</h2>
+
+		<a href="addplace">Dodaj atrakcje</a>
 	</c:if>
 
 </body>

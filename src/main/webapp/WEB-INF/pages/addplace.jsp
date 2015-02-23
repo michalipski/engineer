@@ -3,14 +3,14 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Sign up</title>
+  <title>Add place</title>
 </head>
 <body>
 <div align="center">
-  <form:form action="" method="POST" commandName="addPlace">
+  <form:form action="" method="POST" commandName="place">
     <table border="0">
       <tr>
-        <td colspan="2" align="center"><h2>${msg}</h2></td>
+        <td colspan="2" align="center"><h2></h2></td>
       </tr>
       <tr>
         <td>Place Name:</td>
@@ -37,7 +37,7 @@
         <td><form:input path="phone" /></td>
       </tr>
       <tr>
-        <td>Place address:</td>
+        <td>Place description:</td>
         <td><form:input path="description" /></td>
       </tr>
       <tr>

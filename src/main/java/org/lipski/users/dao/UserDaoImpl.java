@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDaoImpl implements UserDao{
 
     @Autowired
@@ -31,13 +32,11 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    @Transactional
     public void saveUser(User user) {
            sessionFactory.getCurrentSession().save(user);
     }
 
     @Override
-    @Transactional
     public Boolean checkUserAndPassword(String username, String password) {
         User user = findByUserName(username);
         if(user==null){

@@ -71,7 +71,14 @@ public class MainController {
         ModelAndView modelAndView = new ModelAndView();
 
         Boolean login = userDao.checkUserAndPassword(username, password);
-        modelAndView.addObject("login",login.toString());
+        Integer result;
+        if(login) {
+            User u = userDao.findByUserName(username);
+            result = u.getId();
+        } else {
+            result = 0;
+        }
+        modelAndView.addObject("result",result);
         modelAndView.setViewName("remoteLogin");
 
         return modelAndView;
@@ -103,9 +110,7 @@ public class MainController {
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
             System.out.println(userDetail);
-
             model.addObject("username", userDetail.getUsername());
-
         }
 
         model.setViewName("403");

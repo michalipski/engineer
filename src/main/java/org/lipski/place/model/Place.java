@@ -1,13 +1,18 @@
 package org.lipski.place.model;
 
+import org.lipski.btserver.model.BluetoothServer;
+import org.lipski.event.model.Event;
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "places", catalog = "engineerdb")
+@Table(name = "places")
 public class Place implements Serializable{
 
     @Id
@@ -30,11 +35,13 @@ public class Place implements Serializable{
     @Column(name = "phone", length = 9)
     Integer phone;
 
+    @DateTimeFormat(pattern = "HH:mm", iso = DateTimeFormat.ISO.TIME)
     @Column(name = "open_hour")
-    Time openHour;
+    Date openHour;
 
+    @DateTimeFormat(pattern = "HH:mm", iso = DateTimeFormat.ISO.TIME)
     @Column(name = "close_hour")
-    Time closeHour;
+    Date closeHour;
 
     @OneToMany(mappedBy = "place")
     List<Comment> comments;
@@ -42,10 +49,17 @@ public class Place implements Serializable{
     @OneToMany(mappedBy = "place")
     List<Grade> grades;
 
+    @OneToMany(mappedBy = "place")
+    List<Event> events;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "server_id", nullable = false)
+    BluetoothServer bluetoothServer;
+
     public Place() {
     }
 
-    public Place(String name, String address, String city, String description, Integer phone, Time openHour, Time closeHour) {
+    public Place(String name, String address, String city, String description, Integer phone, Timestamp openHour, Timestamp closeHour) {
         this.name = name;
         this.address = address;
         this.city = city;
@@ -105,19 +119,19 @@ public class Place implements Serializable{
         this.phone = phone;
     }
 
-    public Time getOpenHour() {
+    public Date getOpenHour() {
         return openHour;
     }
 
-    public void setOpenHour(Time openHour) {
+    public void setOpenHour(Date openHour) {
         this.openHour = openHour;
     }
 
-    public Time getCloseHour() {
+    public Date getCloseHour() {
         return closeHour;
     }
 
-    public void setCloseHour(Time closeHour) {
+    public void setCloseHour(Date closeHour) {
         this.closeHour = closeHour;
     }
 
@@ -135,5 +149,21 @@ public class Place implements Serializable{
 
     public void setGrades(List<Grade> grades) {
         this.grades = grades;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
+    public BluetoothServer getBluetoothServer() {
+        return bluetoothServer;
+    }
+
+    public void setBluetoothServer(BluetoothServer bluetoothServer) {
+        this.bluetoothServer = bluetoothServer;
     }
 }
