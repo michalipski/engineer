@@ -2,6 +2,8 @@ package org.lipski.place.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.lipski.place.json.CommentJson;
 import org.lipski.place.model.Comment;
 import org.lipski.place.model.Place;
 import org.lipski.users.dao.UserDao;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +38,26 @@ public class CommentDaoImpl implements CommentDao{
 
         Session session = sessionFactory.getCurrentSession();
         session.save(comment);
+    }
+
+    @Override
+    @Transactional
+    public List<CommentJson> getJsonCommentsList(Integer serverId) {
+        Session session = sessionFactory.getCurrentSession();
+        List<Comment> commentList = session.createCriteria(Comment.class,"comment")
+                .createAlias("comment.place","place")
+                .createAlias("place.bluetoothServer","bluetoothServer")
+                .add(Restrictions.eq("bluetoothServer.id",serverId))
+                .add(Restrictions.eq("changed",true))
+                .list();
+
+        List<CommentJson> jsonCommentsList = new ArrayList<>();
+        for(Comment comment:commentList) {
+            CommentJson commentJson = new CommentJson(comment);
+            jsonCommentsList.add(commentJson);
+        }
+
+        return jsonCommentsList;
     }
 
     @Override

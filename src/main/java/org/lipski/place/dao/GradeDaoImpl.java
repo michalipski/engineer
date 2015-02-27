@@ -3,6 +3,7 @@ package org.lipski.place.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.lipski.place.json.GradeJson;
 import org.lipski.place.model.Comment;
 import org.lipski.place.model.Grade;
 import org.lipski.place.model.Place;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +70,26 @@ public class GradeDaoImpl implements GradeDao{
             return true;
         }
         return false;
+    }
+
+    @Override
+    @Transactional
+    public List<GradeJson> getJsonGradesList(Integer serverId) {
+        Session session = sessionFactory.getCurrentSession();
+        List<Grade> gradeList = session.createCriteria(Grade.class,"grade")
+                .createAlias("grade.place","place")
+                .createAlias("place.bluetoothServer","bluetoothServer")
+                .add(Restrictions.eq("bluetoothServer.id",serverId))
+                .add(Restrictions.eq("changed",true))
+                .list();
+
+        List<GradeJson> jsonGradesList = new ArrayList<>();
+        for(Grade grade:gradeList) {
+            GradeJson gradeJson = new GradeJson(grade);
+            jsonGradesList.add(gradeJson);
+        }
+
+        return jsonGradesList;
     }
 
     @Override

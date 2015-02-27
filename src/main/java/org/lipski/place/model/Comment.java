@@ -29,6 +29,9 @@ public class Comment implements Serializable{
     @Column(name = "date")
     Date date;
 
+    @Column(name = "changed")
+    Boolean changed;
+
     public Comment() {
     }
 

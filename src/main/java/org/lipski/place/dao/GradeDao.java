@@ -1,5 +1,6 @@
 package org.lipski.place.dao;
 
+import org.lipski.place.json.GradeJson;
 import org.lipski.place.model.Grade;
 import org.lipski.place.model.Place;
 import org.lipski.users.model.User;
@@ -14,4 +15,6 @@ public interface GradeDao {
     public List<Grade> findUserGrades(User u);
     public List<Grade> findPlaceGrades(Place p);
     public Double getAverageGradeForPlace(Place p);
+
+    public List<GradeJson> getJsonGradesList(Integer serverId);
 }

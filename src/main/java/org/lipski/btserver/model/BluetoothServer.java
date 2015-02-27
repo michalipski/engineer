@@ -3,11 +3,12 @@ package org.lipski.btserver.model;
 import org.lipski.place.model.Place;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "bt_servers")
-public class BluetoothServer {
+public class BluetoothServer implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

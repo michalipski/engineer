@@ -1,6 +1,7 @@
 package org.lipski.place.dao;
 
 import org.hibernate.criterion.Restrictions;
+import org.lipski.place.json.PlaceJson;
 import org.lipski.place.model.Place;
 import org.lipski.web.model.FilterRequest;
 
@@ -18,4 +19,6 @@ public interface PlaceDao {
 
     public boolean deletePlace(Integer id);
     public boolean updatePlace(Place place);
+
+    List<PlaceJson> getJsonPlacesList(Integer id);
 }

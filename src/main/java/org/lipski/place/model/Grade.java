@@ -22,7 +22,7 @@ public class Grade implements Serializable{
     @JoinColumn(name = "author_id")
     User author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     Place place;
 

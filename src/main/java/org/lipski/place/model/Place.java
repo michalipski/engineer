@@ -2,10 +2,10 @@ package org.lipski.place.model;
 
 import org.lipski.btserver.model.BluetoothServer;
 import org.lipski.event.model.Event;
+import org.lipski.place.json.PlaceJson;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,10 +56,13 @@ public class Place implements Serializable{
     @JoinColumn(name = "server_id", nullable = false)
     BluetoothServer bluetoothServer;
 
+    @Column(name = "changed")
+    Boolean changed;
+
     public Place() {
     }
 
-    public Place(String name, String address, String city, String description, Integer phone, Timestamp openHour, Timestamp closeHour) {
+    public Place(String name, String address, String city, String description, Integer phone, Timestamp openHour, Timestamp closeHour, Boolean changed) {
         this.name = name;
         this.address = address;
         this.city = city;
@@ -67,8 +70,29 @@ public class Place implements Serializable{
         this.phone = phone;
         this.openHour = openHour;
         this.closeHour = closeHour;
+        this.changed = changed;
         this.comments = new ArrayList<>();
         this.grades = new ArrayList<>();
+        this.events = new ArrayList<>();
+    }
+
+    public static Place getPlaceForBluetoothCommunication(Place place, ArrayList<Comment> comments) {
+        Place placeClone = new Place();
+        placeClone.setId(place.getId());
+        placeClone.setName(place.getName());
+        placeClone.setAddress(place.getAddress());
+        placeClone.setCity(place.getCity());
+        placeClone.setDescription(place.getDescription());
+        placeClone.setPhone(place.getPhone());
+        placeClone.setOpenHour(place.getOpenHour());
+        placeClone.setCloseHour(place.getCloseHour());
+        placeClone.setComments(comments);
+
+        return placeClone;
+    }
+
+    public static PlaceJson getJsonPlace(Place place) {
+        return new PlaceJson(place);
     }
 
     public Integer getId() {
@@ -165,5 +189,13 @@ public class Place implements Serializable{
 
     public void setBluetoothServer(BluetoothServer bluetoothServer) {
         this.bluetoothServer = bluetoothServer;
+    }
+
+    public Boolean getChanged() {
+        return changed;
+    }
+
+    public void setChanged(Boolean changed) {
+        this.changed = changed;
     }
 }
