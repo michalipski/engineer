@@ -11,7 +11,6 @@ import java.util.Date;
 public class Grade implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "grade_id")
     Integer id;
 
@@ -28,6 +27,9 @@ public class Grade implements Serializable{
 
     @Column(name = "date")
     Date date;
+
+    @Column(name = "changed")
+    Boolean changed;
 
     public Grade() {
     }
@@ -77,5 +79,13 @@ public class Grade implements Serializable{
 
     public void setPlace(Place place) {
         this.place = place;
+    }
+
+    public Boolean getChanged() {
+        return changed;
+    }
+
+    public void setChanged(Boolean changed) {
+        this.changed = changed;
     }
 }

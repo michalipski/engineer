@@ -5,6 +5,7 @@ import org.lipski.event.json.EventJson;
 import org.lipski.place.json.CommentJson;
 import org.lipski.place.json.GradeJson;
 import org.lipski.place.json.PlaceJson;
+import org.lipski.users.json.UserJson;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public class ObjectConverter {
     public String getEventListJson(List<EventJson> eventList) {
         return  gson.toJson(eventList);
     }
+
+    public String getUserListJson(List<UserJson> userList) {return gson.toJson(userList);}
 }

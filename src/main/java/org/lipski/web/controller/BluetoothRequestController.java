@@ -8,6 +8,8 @@ import org.lipski.place.dao.PlaceDao;
 import org.lipski.place.json.CommentJson;
 import org.lipski.place.json.GradeJson;
 import org.lipski.place.json.PlaceJson;
+import org.lipski.users.dao.UserDao;
+import org.lipski.users.json.UserJson;
 import org.lipski.web.json.ObjectConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,9 @@ public class BluetoothRequestController {
 
     @Autowired
     EventDao eventDao;
+
+    @Autowired
+    UserDao userDao;
 
     @Autowired
     ObjectConverter objectConverter;
@@ -73,6 +78,16 @@ public class BluetoothRequestController {
         List<GradeJson> gradeJsonList = gradeDao.getJsonGradesList(id);
         String grades = objectConverter.getGradeListJson(gradeJsonList);
         modelAndView.addObject("response",grades);
+        modelAndView.setViewName("jsonresponse");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/getjsonusers/{id}", method = RequestMethod.GET,produces = "application/json")
+    public ModelAndView getJsonUsers(@PathVariable(value = "id") Integer id) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<UserJson> userJsonList = userDao.getJsonUsersWithIdGreaterThan(id);
+        String users = objectConverter.getUserListJson(userJsonList);
+        modelAndView.addObject("response",users);
         modelAndView.setViewName("jsonresponse");
         return modelAndView;
     }

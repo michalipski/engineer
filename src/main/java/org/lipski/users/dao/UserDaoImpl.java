@@ -1,12 +1,17 @@
 package org.lipski.users.dao;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+import org.lipski.users.json.UserJson;
 import org.lipski.users.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.jws.soap.SOAPBinding;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,5 +54,21 @@ public class UserDaoImpl implements UserDao{
             }
         }
         return false;
+    }
+
+    @Override
+    public List<UserJson> getJsonUsersWithIdGreaterThan(Integer id) {
+        Session session = sessionFactory.getCurrentSession();
+        List<User> users = session.createCriteria(User.class)
+                .add(Restrictions.gt("id",id))
+                .list();
+        List<UserJson> userJsonList = new ArrayList<>();
+        if(!users.isEmpty()) {
+            for (User u:users) {
+                UserJson userJson = new UserJson(u);
+                userJsonList.add(userJson);
+            }
+        }
+        return userJsonList;
     }
 }

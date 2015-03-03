@@ -16,7 +16,6 @@ import java.util.List;
 public class Place implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id", nullable = false)
     Integer id;
 
@@ -62,7 +61,7 @@ public class Place implements Serializable{
     public Place() {
     }
 
-    public Place(String name, String address, String city, String description, Integer phone, Timestamp openHour, Timestamp closeHour, Boolean changed) {
+    public Place(String name, String address, String city, String description, Integer phone, Date openHour, Date closeHour, Boolean changed) {
         this.name = name;
         this.address = address;
         this.city = city;

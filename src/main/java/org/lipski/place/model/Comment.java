@@ -11,7 +11,6 @@ import java.util.Date;
 public class Comment implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     Integer id;
 
@@ -80,5 +79,13 @@ public class Comment implements Serializable{
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Boolean getChanged() {
+        return changed;
+    }
+
+    public void setChanged(Boolean changed) {
+        this.changed = changed;
     }
 }
