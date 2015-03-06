@@ -2,6 +2,7 @@ package org.lipski.place.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.lipski.place.json.CommentJson;
 import org.lipski.place.model.Comment;
@@ -35,6 +36,7 @@ public class CommentDaoImpl implements CommentDao{
         User user = userDao.findByUserName(username);
 
         Comment comment = new Comment(user,place,content,new Date());
+        comment.setChanged(true);
 
         Session session = sessionFactory.getCurrentSession();
         session.save(comment);
@@ -58,6 +60,34 @@ public class CommentDaoImpl implements CommentDao{
         }
 
         return jsonCommentsList;
+    }
+
+    @Transactional
+    private List<Integer> getCommentIdsForServer(Integer serverId) {
+        Session session = sessionFactory.getCurrentSession();
+        List<Integer> idsList = session.createCriteria(Comment.class, "comment")
+                .createAlias("comment.place","place")
+                .createAlias("place.bluetoothServer","bluetoothServer")
+                .add(Restrictions.eq("bluetoothServer.id",serverId))
+                .add(Restrictions.eq("changed",true))
+                .setProjection(Projections.property("id"))
+                .list();
+        return idsList;
+    }
+
+    @Override
+    @Transactional
+    public void setCommentsUpdated(Integer serverId) {
+        List<Integer> commentIds = getCommentIdsForServer(serverId);
+        Session session = sessionFactory.getCurrentSession();
+
+        if(!commentIds.isEmpty()) {
+            for (Integer id:commentIds) {
+                Comment comment = (Comment) session.get(Comment.class,id);
+                comment.setChanged(false);
+                session.update(comment);
+            }
+        }
     }
 
     @Override

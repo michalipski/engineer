@@ -71,4 +71,11 @@ public class UserDaoImpl implements UserDao{
         }
         return userJsonList;
     }
+
+    @Override
+    public User getUserById(Integer id) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = (User) session.get(User.class, id);
+        return user;
+    }
 }

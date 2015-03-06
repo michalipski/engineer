@@ -13,11 +13,11 @@
         <td colspan="2" align="center"><h2></h2></td>
       </tr>
       <tr>
-        <td>Place Name:</td>
+        <td>Event Name:</td>
         <td><form:input path="name" /></td>
       </tr>
       <tr>
-        <td>Place description:</td>
+        <td>Event description:</td>
         <td><form:input path="description" /></td>
       </tr>
       <tr>
@@ -25,8 +25,8 @@
         <td><form:input path="data" /></td>
       </tr>
       <tr>
-        <td>Event place:</td>
-        <td><form:select path="places" items="${placesList}"/></td>
+        <td>Place Name:</td>
+        <td><form:select itemLabel="label" itemValue="id" path="place.id" commandName="placeId" items="${placesList}"/></td>
       </tr>
       <tr>
         <td colspan="2" align="center"><input type="submit" value="Add event" /></td>

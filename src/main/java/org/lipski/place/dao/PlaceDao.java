@@ -21,4 +21,6 @@ public interface PlaceDao {
     public boolean updatePlace(Place place);
 
     List<PlaceJson> getJsonPlacesList(Integer id);
+
+    public void setPlacesUpdated(Integer serverId);
 }

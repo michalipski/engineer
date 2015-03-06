@@ -6,7 +6,7 @@
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <title>Places list</title>
-    <c:url value="/filterlist" var="filterUrl"/>
+    <c:url value="/filterplaceslist" var="filterUrl"/>
 </head>
 <body>
 <div class="filterform">

@@ -31,12 +31,18 @@ public class PlaceController {
 
     @RequestMapping(value = "/place/{id}", method = RequestMethod.GET)
     public ModelAndView placeResponse(@PathVariable(value = "id") Integer id){
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails;
+        try {
+            userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (ClassCastException e) {
+            userDetails = null;
+        }
         return getModelForPlace(id,userDetails);
     }
 
     @RequestMapping(value = "/addplace", method = RequestMethod.POST)
     public String addPlace(@ModelAttribute("place") Place place, BindingResult bindingResult) {
+        place.setChanged(true);
         placeDao.savePlace(place);
         return "placeAdded";
     }
@@ -58,17 +64,7 @@ public class PlaceController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/list/{cityName}",method = RequestMethod.GET)
-    public ModelAndView placesForCity(@PathVariable(value = "cityName") String cityName) {
-        ModelAndView modelAndView = new ModelAndView();
-        List<Place> places = placeDao.getPlacesByCity(cityName);
-        modelAndView.addObject("places",places);
-        modelAndView.addObject("cityName",cityName);
-        modelAndView.setViewName("placesList");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/filterlist", method = RequestMethod.POST)
+    @RequestMapping(value = "/filterplaceslist", method = RequestMethod.POST)
     public ModelAndView filterList(@ModelAttribute(value = "filterRequest")
                                       @Nullable FilterRequest filterRequest,
                                    BindingResult bindingResult) {
@@ -105,6 +101,7 @@ public class PlaceController {
     public ModelAndView editPlaceResponse(@ModelAttribute(value = "editedPlace") Place place, @PathVariable(value = "id") Integer id) {
         ModelAndView modelAndView = new ModelAndView();
         place.setId(id);
+        place.setChanged(true);
         if(placeDao.updatePlace(place)) {
             modelAndView.addObject("message","Place edited successfully");
         } else {
@@ -163,11 +160,16 @@ public class PlaceController {
     public ModelAndView getModelForPlace(Integer id, UserDetails userDetails) {
         ModelAndView modelAndView = new ModelAndView();
         Place place = placeDao.getPlaceById(id);
-        if (gradeDao.isGradedByUser(id,userDetails.getUsername())) {
-            modelAndView.addObject("grade",gradeDao.getUserGradeForPlace(id,userDetails.getUsername()));
+        if(userDetails==null) {
+            modelAndView.addObject("grade",-1);
         } else {
-            modelAndView.addObject("grade",0);
+            if (gradeDao.isGradedByUser(id,userDetails.getUsername())) {
+                modelAndView.addObject("grade",gradeDao.getUserGradeForPlace(id,userDetails.getUsername()));
+            } else {
+                modelAndView.addObject("grade",0);
+            }
         }
+
         modelAndView.addObject("place",place);
         modelAndView.setViewName("place");
         return modelAndView;

@@ -14,16 +14,16 @@
       <td colspan="2" align="center"><h2></h2></td>
     </tr>
     <tr>
-      <td>Place Name:</td>
+      <td>Event Name:</td>
       <td><form:input path="name" /></td>
     </tr>
     <tr>
-      <td>Place Name:</td>
+      <td>Event date:</td>
       <td><form:input path="data" /></td>
     </tr>
     <tr>
       <td>Place Name:</td>
-      <td><form:select path="place" items="${eventsList}"/></td>
+      <td><form:select itemLabel="label" itemValue="id" path="place.id" commandName="placeId" items="${placesList}"/></td>
     </tr>
     <tr>
       <td>Place description:</td>

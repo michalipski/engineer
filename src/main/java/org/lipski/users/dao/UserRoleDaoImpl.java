@@ -13,7 +13,6 @@ public class UserRoleDaoImpl implements UserRoleDao{
     @Autowired
     SessionFactory sessionFactory;
 
-
     @Override
     @Transactional
     public void addRoleToUser(User user, String rolename) {

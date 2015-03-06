@@ -9,11 +9,11 @@
   <title>Place ${event.name}</title>
 </head>
 <body>
-<div class="place">
+<div class="event">
   <table>
     <tr><th>${event.name}</th></tr>
-    <tr><td>${place.name}</td></tr>
-    <tr><td>${place.address}</td></tr>
+    <tr><td>${event.place.name}</td></tr>
+    <tr><td>${event.place.address}</td></tr>
   </table>
 </div>
 </body>

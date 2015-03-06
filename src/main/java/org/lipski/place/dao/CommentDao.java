@@ -14,4 +14,6 @@ public interface CommentDao {
     public void saveCommentForPlace(Integer placeId, String username, String content);
 
     public List<CommentJson> getJsonCommentsList(Integer serverId);
+
+    public void setCommentsUpdated(Integer serverId);
 }

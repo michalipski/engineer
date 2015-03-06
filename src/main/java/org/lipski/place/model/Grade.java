@@ -34,11 +34,12 @@ public class Grade implements Serializable{
     public Grade() {
     }
 
-    public Grade(Integer grade, User author, Date date, Place place) {
+    public Grade(Integer grade, User author, Date date, Place place, Boolean changed) {
         this.grade = grade;
         this.author = author;
         this.date = date;
         this.place = place;
+        this.changed = changed;
     }
 
     public Integer getId() {

@@ -29,9 +29,10 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
         org.lipski.users.model.User user = userDao.findByUserName(username);
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
+        org.lipski.users.model.User userById = userDao.getUserById(user.getId());
+        List<GrantedAuthority> authorities = buildUserAuthority(userById.getUserRole());
 
-        return buildUserForAuthentication(user, authorities);
+        return buildUserForAuthentication(userById, authorities);
 
     }
 

@@ -12,4 +12,6 @@ public interface UserDao {
     Boolean checkUserAndPassword(String username, String password);
 
     List<UserJson> getJsonUsersWithIdGreaterThan(Integer id);
+
+    public User getUserById(Integer id);
 }

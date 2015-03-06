@@ -28,6 +28,9 @@
                     </form>
                 </div>
             </c:when>
+            <c:when test="${grade==-1}">
+                Aby dodac ocene zaloguj sie!
+            </c:when>
             <c:otherwise>
                 Twoja ocena to: ${grade}
             </c:otherwise>

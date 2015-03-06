@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.lipski.btserver.model.BluetoothServer;
 import org.lipski.place.json.PlaceJson;
 import org.lipski.place.model.Place;
 import org.lipski.web.model.FilterRequest;
@@ -82,6 +83,19 @@ public class PlaceDaoImpl implements PlaceDao{
         }
 
         return jsonPlaceList;
+    }
+
+    @Override
+    @Transactional
+    public void setPlacesUpdated(Integer serverId) {
+        List<Integer> placesId = getPlaceIdsForBtServer(serverId);
+
+        Session session = sessionFactory.getCurrentSession();
+        for(Integer placeId: placesId) {
+            Place place = (Place) session.get(Place.class,placeId);
+            place.setChanged(false);
+            session.update(place);
+        }
     }
 
     public List<Integer> getPlaceIdsForBtServer(Integer serverId) {

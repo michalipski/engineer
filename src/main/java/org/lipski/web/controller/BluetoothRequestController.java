@@ -47,6 +47,7 @@ public class BluetoothRequestController {
         ModelAndView modelAndView = new ModelAndView();
         List<PlaceJson> placeJsonList = placeDao.getJsonPlacesList(id);
         String places = objectConverter.getPlaceListJson(placeJsonList);
+        placeDao.setPlacesUpdated(id);
         modelAndView.addObject("response",places);
         modelAndView.setViewName("jsonresponse");
         return modelAndView;
@@ -57,6 +58,7 @@ public class BluetoothRequestController {
         ModelAndView modelAndView = new ModelAndView();
         List<CommentJson> commentJsonList = commentDao.getJsonCommentsList(id);
         String comments = objectConverter.getCommentListJson(commentJsonList);
+        commentDao.setCommentsUpdated(id);
         modelAndView.addObject("response",comments);
         modelAndView.setViewName("jsonresponse");
         return modelAndView;
@@ -67,6 +69,7 @@ public class BluetoothRequestController {
         ModelAndView modelAndView = new ModelAndView();
         List<EventJson> eventJsonList = eventDao.getJsonEventsList(id);
         String events = objectConverter.getEventListJson(eventJsonList);
+        eventDao.setEventsUpdated(id);
         modelAndView.addObject("response",events);
         modelAndView.setViewName("jsonresponse");
         return modelAndView;

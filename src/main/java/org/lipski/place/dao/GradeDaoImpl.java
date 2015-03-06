@@ -35,8 +35,7 @@ public class GradeDaoImpl implements GradeDao{
         Place place = placeDao.getPlaceById(placeId);
         User user = userDao.findByUserName(username);
 
-        Grade g = new Grade(grade,user,new Date(),place);
-
+        Grade g = new Grade(grade,user,new Date(),place, true);
         Session session = sessionFactory.getCurrentSession();
         session.save(g);
     }

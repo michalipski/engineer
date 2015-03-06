@@ -6,7 +6,7 @@
 <head>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <title>Events list</title>
-  <c:url value="/filterlist" var="filterUrl"/>
+  <c:url value="filtereventslist" var="filterUrl"/>
 </head>
 <body>
 <div class="filterform">
@@ -19,7 +19,7 @@
 <div class="list">
   <table border="0">
     <c:forEach items="${events}" var="event">
-      <tr onclick="window.location.href = '<c:url value="event/${event.id}"/>'">
+      <tr onclick="window.location.href = '<c:url value="${event.id}"/>'">
         <td>${event.name}</td><td>${event.place.city}</td>
         <sec:authorize access="hasRole('ROLE_ADMIN')">
           <td><a href="<c:url value="/event/edit/${event.id}"/>">Edytuj</a></td><td><a href="<c:url value="/event/delete/${event.id}"/>">Usun</a></td>

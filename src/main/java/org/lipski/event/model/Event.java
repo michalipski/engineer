@@ -1,6 +1,7 @@
 package org.lipski.event.model;
 
 import org.lipski.place.model.Place;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,11 +23,15 @@ public class Event implements Serializable{
     @JoinColumn(name = "place_id", nullable = false)
     Place place;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "date")
     Date data;
 
     @Column(name = "description")
     String description;
+
+    @Column(name = "changed")
+    Boolean changed;
 
     public Event() {
     }
@@ -76,5 +81,13 @@ public class Event implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getChanged() {
+        return changed;
+    }
+
+    public void setChanged(Boolean changed) {
+        this.changed = changed;
     }
 }

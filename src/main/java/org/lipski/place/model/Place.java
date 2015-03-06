@@ -58,6 +58,9 @@ public class Place implements Serializable{
     @Column(name = "changed")
     Boolean changed;
 
+    @Transient
+    String label;
+
     public Place() {
     }
 
@@ -70,6 +73,7 @@ public class Place implements Serializable{
         this.openHour = openHour;
         this.closeHour = closeHour;
         this.changed = changed;
+        this.label = name + ", " + address + " " + city;
         this.comments = new ArrayList<>();
         this.grades = new ArrayList<>();
         this.events = new ArrayList<>();
@@ -196,5 +200,13 @@ public class Place implements Serializable{
 
     public void setChanged(Boolean changed) {
         this.changed = changed;
+    }
+
+    public String getLabel() {
+        return this.name + ", " + this.address + " " + this.city;
+    }
+
+    public void setLabel(String label) {
+        this.label = this.name + ", " + this.address + " " + this.city;
     }
 }
